@@ -1,0 +1,9 @@
+<app-blogs-hero
+  class="w-full flex flex-col justify-center items-center bg-[#000438] h-screen"
+></app-blogs-hero>
+
+<div
+  class="w-full max-w-6xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-4 my-10 px-2"
+>
+  <app-blog-card *ngFor="let blog of blogs" [blog]="blog"></app-blog-card>
+</div>

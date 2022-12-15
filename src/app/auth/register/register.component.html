@@ -1,0 +1,61 @@
+<div class="flex items-center h-screen w-full">
+  <div class="max-w-lg px-2 mx-auto w-full">
+    <div>
+      <h1 class="text-5xl text-center mb-6">Welcome back</h1>
+      <div class="text-center mb-7">
+        <p class="inline mr-1">Already have an account?</p>
+        <a [routerLink]="['..']" class="text-blue-600 cursor-pointer">Login</a>
+      </div>
+    </div>
+    <form [formGroup]="signupForm" class="w-full px-2" (submit)="onSubmit()">
+      <div class="mb-6">
+        <input
+          type="text"
+          class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+          placeholder="Username"
+          formControlName="username"
+        />
+      </div>
+      <div class="mb-6">
+        <input
+          type="email"
+          class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+          placeholder="Email Address"
+          formControlName="email"
+        />
+      </div>
+      <div class="mb-6">
+        <input
+          type="password"
+          class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+          placeholder="Password"
+          formControlName="password"
+        />
+      </div>
+      <div class="mb-6">
+        <input
+          type="checkbox"
+          class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+          formControlName="rememberMe"
+        />
+        <label class="form-check-label inline-block text-gray-800">
+          Remember me
+        </label>
+      </div>
+      <div class="flex justify-between">
+        <button
+          type="submit"
+          class="w-full py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+        >
+          Register
+        </button>
+        <!-- <button
+              type="button"
+              class="text-blue-600 uppercase font-medium text-sm leading-tight ml-2 w-1/2"
+            >
+              Cancel
+            </button> -->
+      </div>
+    </form>
+  </div>
+</div>
