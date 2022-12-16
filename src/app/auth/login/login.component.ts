@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -8,10 +11,16 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup
+  sub: Subscription
 
-  constructor() { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    this.sub = this.authService.formState.subscribe((value) => {
+      if (value === 'registered') {
+        this.router.navigate(['../..'])
+      }
+    })
     this.loginForm = new FormGroup({
       'username': new FormControl(null, Validators.required),
       'password': new FormControl(null, Validators.required),
@@ -22,9 +31,8 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     const { username, password, rememberMe } = this.loginForm.value
-    console.log(username, password, rememberMe)
     if (this.loginForm.valid) {
-      console.log('Form valid')
+      this.authService.logIn(username, password)
     }
   }
 }

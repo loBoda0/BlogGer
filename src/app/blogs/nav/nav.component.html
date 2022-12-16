@@ -2,7 +2,7 @@
   class="w-full text-white p-3 md:px-20 flex justify-between bg-[#000438] z-50"
 >
   <div class="text-[#5c6cff]">Blog<span class="text-white">Ger</span></div>
-  <div class="flex gap-3">
+  <div *ngIf="user === null" class="flex gap-3">
     <a routerLink="auth"> Login </a>
     <a
       routerLink="auth/signup"
@@ -10,5 +10,8 @@
     >
       Signup
     </a>
+  </div>
+  <div *ngIf="user !== null">
+    <button (click)="logOut()">Logout</button>
   </div>
 </div>

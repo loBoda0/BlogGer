@@ -54,12 +54,10 @@ export class BlogsService {
 
   getBlogById(id: string) {
     return this.blogs.find((blog) => blog.uuid == id)
-    /* return this.blogs[0] */
   }
 
   createBlog(blog: Blog) {
     this.blogs.push(blog)
-    console.log(this.blogs)
   }
   
   updateBlogPost(id: number, blog: Blog) {
