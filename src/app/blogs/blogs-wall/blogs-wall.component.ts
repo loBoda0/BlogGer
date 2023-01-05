@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Blog } from '../blog';
 import { BlogsService } from '../blogs.service';
 
@@ -10,10 +11,9 @@ import { BlogsService } from '../blogs.service';
 export class BlogsWallComponent implements OnInit {
   blogs: Blog[] = []
 
-  constructor(private blogsService: BlogsService) { }
+  constructor(private blogsService: BlogsService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.blogs = this.blogsService.getBlogs()
   }
-
 }

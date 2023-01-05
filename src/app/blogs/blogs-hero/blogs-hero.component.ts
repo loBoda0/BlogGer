@@ -9,14 +9,13 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./blogs-hero.component.css']
 })
 export class BlogsHeroComponent implements OnInit {
-  user: any
-  sub: Subscription
+  isLoggedIn: boolean
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.sub = this.authService.user.subscribe(user => {
-      this.user = user
+    this.authService.isLoggedIn.subscribe(isLoggedIn => {
+      this.isLoggedIn = isLoggedIn
     })
   }
 

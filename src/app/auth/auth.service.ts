@@ -7,7 +7,7 @@ import { BehaviorSubject } from "rxjs"
 })
 export class AuthService {
   formState = new BehaviorSubject("signUp")
-  user = new BehaviorSubject(null)
+  isLoggedIn = new BehaviorSubject(false)
   
   constructor() { }
 
@@ -38,11 +38,9 @@ export class AuthService {
 
   async logIn(username: string, password: string) {
     try {
-      const user = await Auth.signIn(username, password)
-      console.log(user)
-      localStorage.setItem('user', JSON.stringify(user))
-      this.user.next(user)
+      await Auth.signIn(username, password)
       this.formState.next('registered')
+      this.isLoggedIn.next(true)
       return {
         success: 'success'
       }
@@ -57,10 +55,32 @@ export class AuthService {
     try {
       await Auth.signOut();
       this.formState.next('signUp')
+      this.isLoggedIn.next(false)
       localStorage.clear()
-      this.user.next(null)
     } catch (error) {
         console.log('error signing out: ', error);
     }
   }
+
+  async getCurrentUserToken(): Promise<string> {
+    try {
+      const user = await Auth.currentSession()
+      const token = user.getIdToken().getJwtToken()
+      return token
+    } catch (error) {
+      console.log(error)
+    }
+    return ''
+  }
+
+  async chechUserExistsOnLoad(): Promise<void> {
+    try {
+      await Auth.currentAuthenticatedUser()
+      this.isLoggedIn.next(true)
+    } catch (err) {
+      console.log(err)
+      this.isLoggedIn.next(false)
+    }
+  }
+
 }

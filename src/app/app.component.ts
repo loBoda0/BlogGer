@@ -10,8 +10,6 @@ export class AppComponent {
   title = 'BlogGer';
 
   constructor(private authService: AuthService) {
-    if (localStorage.getItem('user')) {
-      authService.user.next(JSON.parse(localStorage.getItem('user')))
-    }
+    authService.chechUserExistsOnLoad()
   }
 }

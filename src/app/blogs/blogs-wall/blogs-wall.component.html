@@ -4,6 +4,7 @@
 
 <div
   class="w-full max-w-6xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-4 my-10 px-2"
+  *ngIf="blogs.length !== 0"
 >
   <app-blog-card *ngFor="let blog of blogs" [blog]="blog"></app-blog-card>
 </div>

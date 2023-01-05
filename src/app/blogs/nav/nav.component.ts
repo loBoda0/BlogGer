@@ -8,14 +8,14 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-  user: any
-  sub: Subscription
+  isLoggedIn: boolean
+  value: boolean
 
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.sub = this.authService.user.subscribe(user => {
-      this.user = user
+    this.authService.isLoggedIn.subscribe(isLoggedIn => {
+      this.isLoggedIn = isLoggedIn
     })
   }
 
