@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "paths": {
+    "/api1/blogs": {
+      "name": "/api1/blogs",
+      "lambdaFunction": "bloggerLambda",
+      "permissions": {
+        "setting": "protected",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ],
+        "guest": [
+          "read"
+        ]
+      }
+    }
+  }
+}

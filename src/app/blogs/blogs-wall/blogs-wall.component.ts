@@ -13,7 +13,7 @@ export class BlogsWallComponent implements OnInit {
 
   constructor(private blogsService: BlogsService, private authService: AuthService) { }
 
-  ngOnInit(): void {
-    this.blogs = this.blogsService.getBlogs()
+  async ngOnInit(): Promise<void> {
+    this.blogs = await this.blogsService.getBlogs()
   }
 }

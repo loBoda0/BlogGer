@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Blog } from './blog';
 import { createBlogDto } from './interfaces/createBlogDto';
+import { API } from 'aws-amplify'
 
 @Injectable({
   providedIn: 'root'
 })
 export class BlogsService {
+  apiName = 'bloggerApi'
+  path = '/api1/blogs'
 
   constructor(private authService: AuthService) { }
 
@@ -51,7 +54,11 @@ export class BlogsService {
     )
   ]
   
-  getBlogs() {
+  async getBlogs() {
+    const { data } = await API.get(this.apiName, this.path, {})
+    /* console.log(data)
+    return data */
+    this.blogs.push(...data)
     return this.blogs.slice()
   }
 
@@ -64,7 +71,11 @@ export class BlogsService {
     const jwt = await this.authService.getCurrentUserToken()
     const blog: Blog = new Blog(jwt, title, body, image)
     this.blogs.push(blog)
-    console.log(this.blogs)
+    const myInit = {
+      body: blog
+    }
+    const data = await API.post(this.apiName, this.path, myInit)
+    console.log(data)
   }
   
   updateBlogPost(id: number, blog: Blog) {

@@ -1,0 +1,10 @@
+{
+  "resourceName": "bloggerTable",
+  "tableName": "bloggerTable",
+  "partitionKey": {
+    "fieldName": "userId",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}
