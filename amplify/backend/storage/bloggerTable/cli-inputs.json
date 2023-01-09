@@ -5,6 +5,10 @@
     "fieldName": "userId",
     "fieldType": "string"
   },
+  "sortKey": {
+    "fieldName": "blogId",
+    "fieldType": "string"
+  },
   "gsi": [],
   "triggerFunctions": []
 }

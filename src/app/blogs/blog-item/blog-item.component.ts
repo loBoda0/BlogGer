@@ -12,7 +12,7 @@ import { BlogsService } from '../blogs.service';
 })
 export class BlogItemComponent implements OnInit {
   blog: (Blog | undefined)
-  token: string
+  isEditable: boolean = false
 
   constructor(private blogsService: BlogsService, private route: ActivatedRoute, private authService: AuthService) { }
 
@@ -21,7 +21,6 @@ export class BlogItemComponent implements OnInit {
       this.blog = this.blogsService.getBlogById(params['id'])
     })
     this.getCurrentUserToken()
-    this.getBlogAuthorData()
   }
 
   getDate() {
@@ -29,15 +28,9 @@ export class BlogItemComponent implements OnInit {
   }
 
   async getCurrentUserToken() {
-    this.token = await this.authService.getCurrentUserToken()
-  }
-
-  getBlogAuthorData() {
-    try {
-    const data = jwt_decode(this.blog.userId)
-      return Object.values(data)[3]
-    } catch (error) {
-      return ''
+    if (this.blog.userId === await this.authService.getCurrentUser()) {
+      console.log('object')
+      this.isEditable = true
     }
   }
 }

@@ -25,8 +25,8 @@ if (process.env.ENV && process.env.ENV !== "NONE") {
 const userIdPresent = false; // TODO: update in case is required to use that definition
 const partitionKeyName = "userId";
 const partitionKeyType = "S";
-const sortKeyName = "";
-const sortKeyType = "";
+const sortKeyName = "blogId";
+const sortKeyType = "S";
 const hasSortKey = sortKeyName !== "";
 const path = "/api1/blogs";
 const UNAUTH = 'UNAUTH';

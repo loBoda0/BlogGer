@@ -97,12 +97,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "bloggerLambdaRole8a3ff166",
+            "bloggerLambdaRolea905c68d",
             {
               "Fn::Join": [
                 "",
                 [
-                  "bloggerLambdaRole8a3ff166",
+                  "bloggerLambdaRolea905c68d",
                   "-",
                   {
                     "Ref": "env"

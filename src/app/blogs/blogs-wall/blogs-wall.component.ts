@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Blog } from '../blog';
 import { BlogsService } from '../blogs.service';
@@ -13,7 +14,11 @@ export class BlogsWallComponent implements OnInit {
 
   constructor(private blogsService: BlogsService, private authService: AuthService) { }
 
-  async ngOnInit(): Promise<void> {
-    this.blogs = await this.blogsService.getBlogs()
+  ngOnInit(): void {
+    this.blogsService.isDataFetched.subscribe(isLoaded => {
+      if (isLoaded) {
+        this.blogs = this.blogsService.getBlogs()
+      }
+    })
   }
 }

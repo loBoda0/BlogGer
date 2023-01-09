@@ -62,6 +62,11 @@ export class AuthService {
     }
   }
 
+  async getCurrentUser() {
+    const { username } = await Auth.currentUserInfo()
+    return username
+  }
+
   async getCurrentUserToken(): Promise<string> {
     try {
       const user = await Auth.currentSession()
