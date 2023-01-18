@@ -21,9 +21,14 @@ export class AuthService {
         }
       })
       this.formState.next('confirmSignUp')
-    } catch (err) {
-      this.formState.next('signUp')
+      return {
+        success: 'success'
+      }
+    } catch (err: any) {
       console.log(err)
+      return {
+        error: err.message
+      }
     }
   }
 
@@ -31,8 +36,14 @@ export class AuthService {
     try {
       await Auth.confirmSignUp(username, verificationCode)
       this.logIn(username, password)
-    } catch (err) {
+      return {
+        success: 'success'
+      }
+    } catch (err: any) {
       console.log(err)
+      return {
+        error: err.message
+      }
     }
   }
 
@@ -82,8 +93,7 @@ export class AuthService {
     try {
       await Auth.currentAuthenticatedUser()
       this.isLoggedIn.next(true)
-    } catch (err) {
-      console.log(err)
+    } catch (err) { 
       this.isLoggedIn.next(false)
     }
   }

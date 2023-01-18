@@ -17,10 +17,14 @@ export class BlogItemComponent implements OnInit {
   constructor(private blogsService: BlogsService, private route: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-      this.blog = this.blogsService.getBlogById(params['id'])
+    this.blogsService.isDataFetched.subscribe(isLoaded => {
+      if (isLoaded) {
+        this.route.params.subscribe((params: Params) => {
+          this.blog = this.blogsService.getBlogById(params['id'])
+        })
+        this.getCurrentUserToken()
+      }
     })
-    this.getCurrentUserToken()
   }
 
   getDate() {
@@ -29,7 +33,6 @@ export class BlogItemComponent implements OnInit {
 
   async getCurrentUserToken() {
     if (this.blog.userId === await this.authService.getCurrentUser()) {
-      console.log('object')
       this.isEditable = true
     }
   }

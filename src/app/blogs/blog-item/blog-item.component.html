@@ -1,5 +1,4 @@
 <div class="w-full max-w-6xl mx-auto min-h-screen p-2 z-0">
-  <a routerLink="/" class="fixed left-3 top-12">Go Back</a>
   <div *ngIf="blog === undefined" class="mt-12">
     Sorry, blog You are looking for does not exists
   </div>
@@ -7,7 +6,12 @@
     <h1 class="text-5xl sm:text-7xl text-center mb-5 capitalize">
       {{ blog.title }}
     </h1>
-    <h4 class="text-center mb-1">By: {{ blog.userId }}</h4>
+    <ng-container *ngIf="!isEditable">
+      <h4 class="text-center mb-1">By: {{ blog.userId }}</h4>
+    </ng-container>
+    <ng-container *ngIf="isEditable">
+      <h4 class="text-center mb-1">Edit Blog</h4>
+    </ng-container>
     <h4 class="text-center mb-2">{{ getDate() | date }}</h4>
     <img
       *ngIf="blog.image"

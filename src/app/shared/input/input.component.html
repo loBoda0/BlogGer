@@ -1,0 +1,43 @@
+<div class="mb-6">
+  <input
+    *ngIf="inputType === 'text' || inputType === 'password'"
+    [type]="inputType"
+    [class]="
+      getValidationStyle() +
+      'form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+    "
+    [placeholder]="label"
+    [formControl]="control"
+  />
+  <input
+    *ngIf="inputType === 'disabled'"
+    class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none cursor-not-allowed"
+    [placeholder]="control.value"
+    disabled
+  />
+  <ng-container *ngIf="inputType === 'checkbox'">
+    <input
+      type="checkbox"
+      class="form-check-input appearance-none h-4 w-4 border rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+    />
+    <ng-content></ng-content>
+  </ng-container>
+  <div *ngIf="displayErrors()" class="text-red-700 text-sm ml-1">
+    <p *ngIf="control.errors?.['isUsernameUnique']">
+      User with this username already exists
+    </p>
+    <p *ngIf="control.errors?.['required']">Value is required</p>
+    <p *ngIf="control.errors?.['email']">Enter a valid email</p>
+    <p *ngIf="control.errors?.['userDoesNotExist']">User does not exist.</p>
+    <p *ngIf="control.errors?.['minlength']">
+      Value you entered is
+      {{ control.errors?.['minlength'].requiredLength - control.errors?.['minlength'].actualLength }}
+      characters too short
+    </p>
+    <p *ngIf="control.errors?.['pattern']">Invalid format</p>
+    <p *ngIf="control.errors?.['wrongPassword']">This password is incorrect</p>
+    <p *ngIf="control.errors?.['wrongVerificationCode']">
+      Verification code is invalid, try again.
+    </p>
+  </div>
+</div>

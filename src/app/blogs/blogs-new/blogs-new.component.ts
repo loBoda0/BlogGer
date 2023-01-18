@@ -23,12 +23,14 @@ export class BlogsNewComponent implements OnInit {
     })
   }
 
-  publishBlog() {
+  async publishBlog() {
     if (this.newBlog.valid) {
       const { title, body, image } = this.newBlog.value
       const blogDto: createBlogDto = {title, body, image}
-      this.blogsService.createBlog(blogDto)
-      this.router.navigate(['..'])
+      const res = await this.blogsService.createBlog(blogDto)
+      if (res.success) {
+        this.router.navigate(['..'])
+      }
     } else {
       console.log('Form invalid')
     }

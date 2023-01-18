@@ -21,27 +21,34 @@ export class RegisterComponent implements OnInit, OnDestroy {
       if (value === 'registered') {
         this.router.navigate(['../..'])
       }
-      if (value === 'confirmSignUp') {
-        this.signupForm.get('verificationCode')?.enable()
-      }
       this.formState = value
     })
     this.signupForm = new FormGroup({
       'username': new FormControl('', Validators.required),
-      'email': new FormControl('', (Validators.required, Validators.email)),
-      'password': new FormControl('', Validators.required),
+      'email': new FormControl('', [Validators.required, Validators.email]),
+      'password': new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9a-zA-Z0-9~`!@#$%^&*()_\-+={[}\]|\\:;"'<,>.?\/]+$/)]),
       'rememberMe': new FormControl(false),
       'verificationCode': new FormControl({value: '', disabled: true}, Validators.required)
     })
   }
 
-  onSubmit() {
+  async onSubmit() {
     const { username, email, password, rememberMe, verificationCode } = this.signupForm.value
-    if (this.signupForm.valid) {
-      this.authService.signUp(username, password, email)
+    if (verificationCode) {
+      const res =  await this.authService.confirmSignUp(username, verificationCode, password)
+      if (res.error === "Invalid verification code provided, please try again.") {
+        this.signupForm.controls['verificationCode'].setErrors({ wrongVerificationCode: true })
+      }
     }
-    if (verificationCode !== '') {
-      this.authService.confirmSignUp(username, verificationCode, password)
+    else if (this.signupForm.valid) {
+      const res = await this.authService.signUp(username, password, email)
+      if (!res.error) {
+        this.signupForm.get('verificationCode')?.enable()
+      } else {
+        if (res.error === "User already exists") {
+          this.signupForm.controls['username'].setErrors({ isUsernameUnique: true })
+        }
+      }
     }
   }
 

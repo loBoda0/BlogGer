@@ -73,7 +73,8 @@ export class BlogsService {
       body: blog
     }
     const data = await API.post(this.apiName, this.path, myInit)
-    console.log(data)
+    this.isDataFetched.next(true)
+    return data
   }
   
   updateBlogPost(id: number, blog: Blog) {

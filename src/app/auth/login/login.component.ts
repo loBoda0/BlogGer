@@ -29,10 +29,16 @@ export class LoginComponent implements OnInit {
   }
 
 
-  onSubmit() {
+  async onSubmit() {
     const { username, password, rememberMe } = this.loginForm.value
     if (this.loginForm.valid) {
-      this.authService.logIn(username, password)
+      const res = await this.authService.logIn(username, password)
+      if (res.error === 'User does not exist.') {
+        this.loginForm.controls['username'].setErrors({ userDoesNotExist: true })
+      }
+      if (res.error === 'Incorrect username or password.') {
+        this.loginForm.controls['password'].setErrors({ wrongPassword: true })
+      }
     }
   }
 }
