@@ -24,11 +24,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
       this.formState = value
     })
     this.signupForm = new FormGroup({
-      'username': new FormControl('', Validators.required),
-      'email': new FormControl('', [Validators.required, Validators.email]),
-      'password': new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9a-zA-Z0-9~`!@#$%^&*()_\-+={[}\]|\\:;"'<,>.?\/]+$/)]),
+      'username': new FormControl(null, Validators.required),
+      'email': new FormControl(null, [Validators.required, Validators.email]),
+      'password': new FormControl(null, [Validators.required, Validators.minLength(8), Validators.pattern(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9a-zA-Z0-9~`!@#$%^&*()_\-+={[}\]|\\:;"'<,>.?\/]+$/)]),
       'rememberMe': new FormControl(false),
-      'verificationCode': new FormControl({value: '', disabled: true}, Validators.required)
+      'verificationCode': new FormControl({value: null, disabled: true}, Validators.required)
     })
   }
 

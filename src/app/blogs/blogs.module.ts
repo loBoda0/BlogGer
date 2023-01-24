@@ -10,6 +10,8 @@ import { BlogsWallComponent } from './blogs-wall/blogs-wall.component';
 import { BlogCardComponent } from './blog-card/blog-card.component';
 import { BlogsNewComponent } from './blogs-new/blogs-new.component';
 import { BlogItemComponent } from './blog-item/blog-item.component';
+import { SharedModule } from '../shared/shared.module';
+import { ReplyComponent } from './blog-item/reply/reply.component';
 
 
 @NgModule({
@@ -21,12 +23,14 @@ import { BlogItemComponent } from './blog-item/blog-item.component';
     BlogCardComponent,
     BlogsNewComponent,
     BlogItemComponent,
+    ReplyComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    BlogsRoutingModule
+    BlogsRoutingModule,
+    SharedModule,
   ]
 })
 export class BlogsModule { }

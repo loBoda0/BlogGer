@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
-import { Blog } from './blog';
+import { Blog, Reply } from './blog';
 import { createBlogDto } from './interfaces/createBlogDto';
 import { API } from 'aws-amplify'
 import { BehaviorSubject } from 'rxjs';
@@ -84,10 +84,30 @@ export class BlogsService {
   deleteBlogPost(id: number) {
     this.blogs.splice(id, 1)
   }
-
+  
   async fetchBlogsFromDB() {
     const { data } = await API.get(this.apiName, this.path, {})
     this.blogs.push(...data)
     this.isDataFetched.next(true)
+  }
+  
+  async postComment(blogId: string, commentBody: string){
+    const userId = await this.authService.getCurrentUser()
+    const reply = new Reply(userId, commentBody)
+    let updatedBlog = this.blogs.find(blog => {
+      return blog.blogId === blogId
+    })
+    updatedBlog.replies.push(reply)
+    /* this.blogs.forEach(blog => {
+      if (blog.blogId === blogId) {
+        blog.replies.push()
+      }
+    }) */
+    console.log(updatedBlog)
+    const myInit = {
+      body: updatedBlog
+    }
+    const data = await API.put(this.apiName, this.path, myInit)
+    console.log(data)
   }
 }
