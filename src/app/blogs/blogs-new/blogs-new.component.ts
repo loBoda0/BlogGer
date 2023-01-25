@@ -17,9 +17,9 @@ export class BlogsNewComponent implements OnInit {
 
   ngOnInit(): void {
     this.newBlog = new FormGroup({
-      'title': new FormControl('test', Validators.required),
-      'body': new FormControl('test', Validators.required),
-      'image': new FormControl('https://images.unsplash.com/photo-1671733035764-4db6f30c0a79?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80')
+      'title': new FormControl(null, Validators.required),
+      'body': new FormControl(null, Validators.required),
+      'image': new FormControl(null)
     })
   }
 

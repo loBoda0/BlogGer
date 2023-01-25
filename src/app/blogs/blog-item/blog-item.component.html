@@ -33,7 +33,7 @@
             label="Add comment to this post"
             [control]="$any(postComment.controls['body'])"
           ></app-input>
-          <button type="submit">Submit</button>
+          <button type="submit" [disabled]="!isLoggedIn">Submit</button>
         </form>
       </div>
       <app-reply *ngFor="let reply of blog.replies" [reply]="reply"></app-reply>
