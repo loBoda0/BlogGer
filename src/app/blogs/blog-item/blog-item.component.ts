@@ -15,12 +15,16 @@ export class BlogItemComponent implements OnInit {
   postComment: FormGroup
   blog: (Blog | undefined)
   isEditable: boolean = false
+  isLoggedIn: boolean
 
   constructor(private blogsService: BlogsService, private route: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.postComment = new FormGroup({
       'body' : new FormControl('', Validators.required)
+    })
+    this.authService.isLoggedIn.subscribe(isLoggedIn => {
+      this.isLoggedIn = isLoggedIn
     })
     this.blogsService.isDataFetched.subscribe(isLoaded => {
       if (isLoaded) {
@@ -43,7 +47,6 @@ export class BlogItemComponent implements OnInit {
   }
 
   addComment() {
-    console.log('object')
     const {body} = this.postComment.value
     if (this.postComment.valid) {
       this.blogsService.postComment(this.blog.blogId, body)
