@@ -77,8 +77,16 @@ export class BlogsService {
     return data
   }
   
-  updateBlogPost(id: number, blog: Blog) {
-    this.blogs[id] = blog;
+  updateBlogPost(id: string, updatedBlog: Blog) {
+    this.blogs.forEach(blog => {
+      if (blog.blogId === id) {
+        blog = updatedBlog
+      }
+    })
+    const myInit = {
+      body: updatedBlog
+    }
+    API.post(this.apiName, this.path, myInit)
   }
   
   deleteBlogPost(id: number) {
@@ -98,12 +106,6 @@ export class BlogsService {
       return blog.blogId === blogId
     })
     updatedBlog.replies.push(reply)
-    /* this.blogs.forEach(blog => {
-      if (blog.blogId === blogId) {
-        blog.replies.push()
-      }
-    }) */
-    console.log(updatedBlog)
     const myInit = {
       body: updatedBlog
     }

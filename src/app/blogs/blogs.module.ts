@@ -12,6 +12,7 @@ import { BlogsNewComponent } from './blogs-new/blogs-new.component';
 import { BlogItemComponent } from './blog-item/blog-item.component';
 import { SharedModule } from '../shared/shared.module';
 import { ReplyComponent } from './blog-item/reply/reply.component';
+import { BlogsEditComponent } from './blogs-edit/blogs-edit.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { ReplyComponent } from './blog-item/reply/reply.component';
     BlogsNewComponent,
     BlogItemComponent,
     ReplyComponent,
+    BlogsEditComponent,
   ],
   imports: [
     CommonModule,
